@@ -110,9 +110,13 @@ const eventHandler = (() => {
     })
   })
   restartBtn.addEventListener('click', (e) => {
-    displayer.resetDisplay();
     controller.resetRound();
+    for (let i = 0; i < eventHandler.fields.length; i++) {
+      eventHandler.fields[i].innerText = '';
+    };
+    displayer.updateMsg(1, mode.getMode(), playerSymbol.getPlayerSymbol());
     board.resetBoard();
+    controller.checkTurn();
   })
   return { fields }
 })();
@@ -237,9 +241,6 @@ const displayer = (() => {
   };
 
   const resetDisplay = () => {
-    for (let i = 0; i < eventHandler.fields.length; i++) {
-      eventHandler.fields[i].innerText = '';
-    }
     msg.innerText = 'Player X turn';
   }
 
@@ -270,7 +271,6 @@ const displayer = (() => {
 })();
 
 const robot = (() => {
-  console.log('robot turn')
   let winConditions = [];
   const playTurn = (conditions) => {
     winConditions = [];
@@ -350,9 +350,7 @@ const robot = (() => {
       let fieldIndex;
       if (fields.length == 0) {
         board.currentBoard.forEach((field, index) => {
-          console.log('inside foreach')
           if (field == '') {
-            console.log('inside if', index)
             fieldIndex = index;
           }
         })
@@ -361,7 +359,6 @@ const robot = (() => {
       : fieldIndex;
     }
       setTimeout(function (){
-        console.log(fieldChosen())
       controller.playRound(fieldChosen())
     }, 500);
 
