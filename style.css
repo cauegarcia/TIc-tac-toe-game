@@ -25,24 +25,25 @@ body {
   pointer-events: none;
 }
 .game-field{
-  margin-top: 30px;
-  width: 60%;
-  height: 500px;
+  margin-top: 29px;
+  width: 50%;
+  height: 75vh;
   background: url('/ttt.png') center center;
   background-size: contain;
   background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 36.8% 27.8% 35.3%;
+  grid-template-rows: 1fr 1fr 1fr;
+  
 }
 .field {
-  width: 130px;
-  height: 130px;
-  margin: 20px 38px 20px 38px;
+  width: 90%;
+  height: 85%;
+  margin: 0;
   z-index: 1;
-  font-size: 110px;
+  font-size: 8rem;
   text-align: center;
+  place-self: center;
   }
 .restart {
   padding: 10px;
@@ -54,14 +55,13 @@ body {
   background: black;
   color: cornflowerblue;
 }
-
 .initial-input{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80%;
-  height: 90vh;
+  height: 90%;
   background-color: rgba(170, 168, 168, 0.88);
   border-radius: 30px;
   box-shadow: 0 5px 5px rgba(3, 3, 3, 0.38);

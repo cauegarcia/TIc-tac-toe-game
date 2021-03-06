@@ -273,6 +273,17 @@ const displayer = (() => {
 const robot = (() => {
   let winConditions = [];
   const playTurn = (conditions) => {
+    if (difficulty.getDifficulty() == 'easy'){
+      let blankFields = [];
+      for (let i = 0; i < 9; i++) {
+        if (board.getBoard(i) == ''){
+          blankFields.push(i);
+        }
+      }
+      let randomField = Math.floor(Math.random() * blankFields.length);
+      setTimeout(function (){controller.playRound(blankFields[randomField])}, 500);
+      return;
+    }
     winConditions = [];
   for (let i = 0; i < conditions.length; i++){
     winConditions.push(conditions[i]);
