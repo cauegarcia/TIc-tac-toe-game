@@ -274,7 +274,18 @@ const robot = (() => {
   let winConditions = [];
   const playTurn = (conditions) => {
     if (difficulty.getDifficulty() == 'easy'){
-      let blankFields = [];
+      goEasy();
+      return;
+    }
+    winConditions = [];
+  for (let i = 0; i < conditions.length; i++){
+    winConditions.push(conditions[i]);
+  }
+ 
+  decideAction();
+  };
+  const goEasy = () => {
+    let blankFields = [];
       for (let i = 0; i < 9; i++) {
         if (board.getBoard(i) == ''){
           blankFields.push(i);
@@ -283,13 +294,12 @@ const robot = (() => {
       let randomField = Math.floor(Math.random() * blankFields.length);
       setTimeout(function (){controller.playRound(blankFields[randomField])}, 500);
       return;
-    }
-    winConditions = [];
-  for (let i = 0; i < conditions.length; i++){
-    winConditions.push(conditions[i]);
-  }
-  decideAction();
-  }
+  };
+  const goNormal = () => {
+    return playerWinCondition.length === 0
+      ? goEasy()
+      : defend();
+  };
 
   let playerWinCondition = [];
   const decideAction = () => {
@@ -313,6 +323,10 @@ const robot = (() => {
   }
 
   const takeAction = () => {
+    if (difficulty.getDifficulty() == 'normal') {
+      goNormal();
+      return;
+    }
     playerWinCondition.length > 0 ? defend() : attack();
   }
   
@@ -323,6 +337,7 @@ const robot = (() => {
         return true;
       } else { return false;}
     });
+
     setTimeout(function (){controller.playRound(fieldToDefend[0])}, 500);
   };
   const attack = () => {
@@ -369,6 +384,7 @@ const robot = (() => {
       return fieldIndex == undefined ? fields[Math.floor(Math.random() * fields.length)][0]
       : fieldIndex;
     }
+
       setTimeout(function (){
       controller.playRound(fieldChosen())
     }, 500);
